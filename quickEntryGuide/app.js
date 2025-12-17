@@ -50,7 +50,6 @@ function renderSteps(lang) {
 
         stepElement.innerHTML = `
             <div class="step-header">
-                <span class="step-number">${index + 1}</span>
                 <h2 class="step-title">${step.title}</h2>
             </div>
             ${step.description ? `<p class="step-description">${step.description}</p>` : ''}

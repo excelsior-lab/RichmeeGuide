@@ -35,28 +35,28 @@
         header {
             text-align: left;
             margin-top: 60px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             padding-bottom: 0;
         }
 
         h1 {
             font-size: 2em;
             color: #1a1a1a;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .subtitle {
             font-size: 1.2em;
             font-weight: 600;
             color: #1a1a1a;
-            margin-bottom: 30px;
         }
 
         .language-selector {
             position: absolute;
             top: 72px;
             right: 40px;
-            z-index: 10;
+            z-index: 100;
+            pointer-events: auto;
         }
 
         .language-selector label {
@@ -193,7 +193,7 @@
             text-align: center;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 2px solid #eee;
+            border-top: 0.5px solid #eee;
             color: #666;
             font-size: 11px;
         }
@@ -207,7 +207,8 @@
             .language-selector {
                 top: 72px;
                 right: 20px;
-                z-index: 10;
+                z-index: 100;
+                pointer-events: auto;
             }
 
             h1 {
@@ -240,15 +241,10 @@
 
 <body>
     <div class="container">
-        <header>
-            <h1 id="main-title">How to Use This Feature</h1>
-            <p class="subtitle" id="subtitle">Follow these simple steps</p>
-        </header>
-
         <div class="language-selector">
             <label for="language" id="lang-label">Language: </label>
             <select id="language" onchange="changeLanguage(this.value)">
-                <option value="auto">Auto Detect</option>
+                <option value="auto">Auto</option>
                 <option value="en">English</option>
                 <option value="zh-CN">简体中文</option>
                 <option value="zh-TW">繁體中文</option>
@@ -258,6 +254,11 @@
                 <option value="fr">Français</option>
             </select>
         </div>
+
+        <header>
+            <h1 id="main-title">How to Use This Feature</h1>
+            <p class="subtitle" id="subtitle">Follow these simple steps</p>
+        </header>
 
         <main id="steps-container">
             <!-- Steps will be dynamically generated -->

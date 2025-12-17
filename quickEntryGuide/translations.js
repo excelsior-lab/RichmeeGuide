@@ -23,12 +23,12 @@ const translations = {
         langLabel: 'Language: ',
         steps: [
             {
-                title: 'Tap the back of your phone to enable',
+                title: 'Method 1: Tap the back of your phone to enable',
                 description: '',
                 images: 'backTap'
             },
             {
-                title: 'Side button to enable (iPhone 15 Pro and above)',
+                title: 'Method 2: Side button to enable (iPhone 15 Pro and above)',
                 description: '',
                 images: 'sideTap'
             }
@@ -42,12 +42,12 @@ const translations = {
         langLabel: '语言：',
         steps: [
             {
-                title: '轻点手机背面开启',
+                title: '方式一：轻点手机背面开启',
                 description: '',
                 images: 'backTap'
             },
             {
-                title: '侧边按钮开启（iPhone 15 Pro以上机型支持）',
+                title: '方式二：侧边按钮开启（iPhone 15 Pro以上机型支持）',
                 description: '',
                 images: 'sideTap'
             }
@@ -61,12 +61,12 @@ const translations = {
         langLabel: '語言：',
         steps: [
             {
-                title: '輕點手機背面開啟',
+                title: '方式一：輕點手機背面開啟',
                 description: '',
                 images: 'backTap'
             },
             {
-                title: '側邊按鈕開啟（iPhone 15 Pro以上機型支持）',
+                title: '方式二：側邊按鈕開啟（iPhone 15 Pro以上機型支持）',
                 description: '',
                 images: 'sideTap'
             }
@@ -80,12 +80,12 @@ const translations = {
         langLabel: '言語：',
         steps: [
             {
-                title: '背面タップで起動',
+                title: '方法1：背面タップで起動',
                 description: '',
                 images: 'backTap'
             },
             {
-                title: 'サイドボタンで起動（iPhone 15 Pro以上）',
+                title: '方法2：サイドボタンで起動（iPhone 15 Pro以上）',
                 description: '',
                 images: 'sideTap'
             }
@@ -99,12 +99,12 @@ const translations = {
         langLabel: '언어: ',
         steps: [
             {
-                title: '뒷면 탭으로 시작',
+                title: '방법 1: 뒷면 탭으로 시작',
                 description: '',
                 images: 'backTap'
             },
             {
-                title: '측면 버튼 시작 (iPhone 15 Pro 이상)',
+                title: '방법 2: 측면 버튼 시작 (iPhone 15 Pro 이상)',
                 description: '',
                 images: 'sideTap'
             }
@@ -118,12 +118,12 @@ const translations = {
         langLabel: 'Idioma: ',
         steps: [
             {
-                title: 'Activar tocando la parte trasera',
+                title: 'Método 1: Activar tocando la parte trasera',
                 description: '',
                 images: 'backTap'
             },
             {
-                title: 'Activar con botón lateral (iPhone 15 Pro+)',
+                title: 'Método 2: Activar con botón lateral (iPhone 15 Pro+)',
                 description: '',
                 images: 'sideTap'
             }
@@ -137,16 +137,54 @@ const translations = {
         langLabel: 'Langue : ',
         steps: [
             {
-                title: 'Activer en tapotant l\'arrière',
+                title: 'Méthode 1: Activer en tapotant l\'arrière',
                 description: '',
                 images: 'backTap'
             },
             {
-                title: 'Activer avec bouton latéral (iPhone 15 Pro+)',
+                title: 'Méthode 2: Activer avec bouton latéral (iPhone 15 Pro+)',
                 description: '',
                 images: 'sideTap'
             }
         ],
         footer: '© 2025 Richmee. Tous droits réservés.'
+    },
+    'de': {
+        pageTitle: 'Richmee Intelligente Schnelle Buchhaltung',
+        mainTitle: 'Richmee Intelligente Schnelle Buchhaltung',
+        subtitle: 'Triggermethode Einstellungen',
+        langLabel: 'Sprache: ',
+        steps: [
+            {
+                title: 'Methode 1: Klopfen Sie auf die Rückseite Ihres Telefons',
+                description: '',
+                images: 'backTap'
+            },
+            {
+                title: 'Methode 2: Seitentaste aktivieren (iPhone 15 Pro und höher)',
+                description: '',
+                images: 'sideTap'
+            }
+        ],
+        footer: '© 2025 Richmee. Alle Rechte vorbehalten.'
+    },
+    'ar': {
+        pageTitle: 'Richmee المحاسبة الذكية السريعة',
+        mainTitle: 'Richmee المحاسبة الذكية السريعة',
+        subtitle: 'إعدادات طريقة التشغيل',
+        langLabel: 'اللغة: ',
+        steps: [
+            {
+                title: 'الطريقة 1: اضغط على ظهر هاتفك للتفعيل',
+                description: '',
+                images: 'backTap'
+            },
+            {
+                title: 'الطريقة 2: تفعيل زر جانبي (iPhone 15 Pro والإصدارات الأحدث)',
+                description: '',
+                images: 'sideTap'
+            }
+        ],
+        footer: '© 2025 Richmee. جميع الحقوق محفوظة.'
     }
 };

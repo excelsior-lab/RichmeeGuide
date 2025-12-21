@@ -146,9 +146,16 @@ function showXLanguageDebug(lang) {
 
 // 初始化
 function getXLanguage() {
-    // 1. URL参数
-    const params = new URLSearchParams(window.location.search);
-    let lang = params.get('x-language');
+    // 1. URL参数，兼容大小写和前后空格
+    const query = window.location.search.replace(/^\?/, '').split('&');
+    let lang = null;
+    for (let i = 0; i < query.length; i++) {
+        const [key, value] = query[i].split('=');
+        if (key && key.trim().toLowerCase() === 'x-language') {
+            lang = decodeURIComponent(value || '').trim();
+            break;
+        }
+    }
     if (lang) return lang;
     // 2. window变量
     if (window['xLanguage']) return window['xLanguage'];

@@ -124,16 +124,39 @@ function renderPage(lang) {
 }
 
 // 初始化
-function init() {
-    // 检查是否有保存的语言偏好
-    const savedLang = localStorage.getItem('selectedLanguage');
+function getXLanguage() {
+    // 1. URL参数
+    const params = new URLSearchParams(window.location.search);
+    let lang = params.get('x-language');
+    if (lang) return lang;
+    // 2. window变量
+    if (window['xLanguage']) return window['xLanguage'];
+    return null;
+}
 
-    if (savedLang && savedLang !== 'auto') {
-        currentLanguage = savedLang;
-        document.getElementById('language').value = savedLang;
+function init() {
+    // 优先使用x-language
+    let lang = getXLanguage();
+    if (lang) {
+        // 兼容zh/zh-CN/zh-TW
+        if (lang === 'zh') lang = 'zh-CN';
+        if (lang === 'zh-Hant' || lang === 'zh-TW') lang = 'zh-TW';
+        // 如果是支持的语言则使用，否则默认en
+        const select = document.getElementById('language');
+        if (![...select.options].some(opt => opt.value === lang)) lang = 'en';
+        localStorage.setItem('selectedLanguage', lang);
+        select.value = lang;
+        currentLanguage = lang;
     } else {
-        currentLanguage = detectBrowserLanguage();
-        document.getElementById('language').value = 'auto';
+        // 检查是否有保存的语言偏好
+        const savedLang = localStorage.getItem('selectedLanguage');
+        if (savedLang && savedLang !== 'auto') {
+            currentLanguage = savedLang;
+            document.getElementById('language').value = savedLang;
+        } else {
+            currentLanguage = detectBrowserLanguage();
+            document.getElementById('language').value = currentLanguage;
+        }
     }
 
     // 初始化页面
@@ -161,36 +184,3 @@ if (document.readyState === 'loading') {
 } else {
     init();
 }
-
-// 页面加载时自动检测语言
-document.addEventListener('DOMContentLoaded', function () {
-    // 获取保存的语言或默认语言
-    let lang = localStorage.getItem('selectedLanguage');
-
-    // 如果没有保存的语言，尝试检测浏览器语言
-    if (!lang || lang === 'auto') {
-        const browserLang = navigator.language || navigator.userLanguage;
-        // 匹配支持的语言
-        if (browserLang.startsWith('zh-Hans')) {
-            lang = 'zh-CN';
-        } else if (browserLang.startsWith('zh-Hant') || browserLang.startsWith('zh-TW')) {
-            lang = 'zh-TW';
-        } else if (browserLang.startsWith('ja')) {
-            lang = 'ja';
-        } else if (browserLang.startsWith('ko')) {
-            lang = 'ko';
-        } else if (browserLang.startsWith('es')) {
-            lang = 'es';
-        } else if (browserLang.startsWith('fr')) {
-            lang = 'fr';
-        } else {
-            lang = 'en'; // 默认英文
-        }
-    }
-
-    // 设置选择器的值
-    document.getElementById('language').value = lang;
-
-    // 渲染页面
-    renderPage(lang);
-});

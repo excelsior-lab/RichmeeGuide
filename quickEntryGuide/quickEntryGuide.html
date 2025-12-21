@@ -291,6 +291,7 @@
                 // 兼容zh/zh-CN/zh-TW
                 let value = lang;
                 if (lang === 'zh') value = 'zh-CN';
+                if (lang === 'zh-Hant' || lang === 'zh-TW') value = 'zh-TW';
                 if ([...select.options].some(opt => opt.value === value)) {
                     select.value = value;
                     if (typeof changeLanguage === 'function') changeLanguage(value);

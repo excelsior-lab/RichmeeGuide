@@ -123,6 +123,27 @@ function renderPage(lang) {
     renderSteps(lang);
 }
 
+// 在页面右上角展示x-language调试信息（全局作用域）
+function showXLanguageDebug(lang) {
+    let debugDiv = document.getElementById('xlang-debug');
+    if (!debugDiv) {
+        debugDiv = document.createElement('div');
+        debugDiv.id = 'xlang-debug';
+        debugDiv.style.position = 'fixed';
+        debugDiv.style.top = '10px';
+        debugDiv.style.right = '10px';
+        debugDiv.style.background = 'rgba(255,255,0,0.9)';
+        debugDiv.style.color = '#333';
+        debugDiv.style.fontSize = '13px';
+        debugDiv.style.padding = '4px 12px';
+        debugDiv.style.borderRadius = '8px';
+        debugDiv.style.zIndex = '9999';
+        debugDiv.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+        document.body.appendChild(debugDiv);
+    }
+    debugDiv.textContent = 'x-language: ' + (lang || '(无)');
+}
+
 // 初始化
 function getXLanguage() {
     // 1. URL参数
@@ -135,6 +156,8 @@ function getXLanguage() {
 }
 
 function init() {
+    // 展示x-language调试信息
+    showXLanguageDebug(getXLanguage());
     // 优先使用x-language
     let lang = getXLanguage();
     if (lang) {

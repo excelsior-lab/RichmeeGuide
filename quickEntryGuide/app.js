@@ -163,8 +163,6 @@ function getXLanguage() {
 }
 
 function init() {
-    // 展示x-language调试信息
-    showXLanguageDebug(getXLanguage());
     // 优先使用x-language
     let lang = getXLanguage();
     if (lang) {

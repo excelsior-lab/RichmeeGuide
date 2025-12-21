@@ -168,24 +168,9 @@ function init() {
     // 优先使用x-language
     let lang = getXLanguage();
     if (lang) {
-        // 兼容各种语言代码
-        lang = lang.replace('-', '_');
-        // zh_Hant, zh-Hant, zh_TW, zh-TW → zh-TW
-        if (/^zh[_-]Hant$/i.test(lang) || /^zh[_-]TW$/i.test(lang)) lang = 'zh-TW';
-        // zh, zh_CN, zh-CN → zh-CN
-        else if (/^zh$/i.test(lang) || /^zh[_-]CN$/i.test(lang)) lang = 'zh-CN';
-        // de, de_DE, de-DE → de
-        else if (/^de([_-][a-zA-Z]+)?$/.test(lang)) lang = 'de';
-        // ja, ja_JP, ja-JP → ja
-        else if (/^ja([_-][a-zA-Z]+)?$/.test(lang)) lang = 'ja';
-        // ko, ko_KR, ko-KR → ko
-        else if (/^ko([_-][a-zA-Z]+)?$/.test(lang)) lang = 'ko';
-        // es, es_ES, es-ES → es
-        else if (/^es([_-][a-zA-Z]+)?$/.test(lang)) lang = 'es';
-        // fr, fr_FR, fr-FR → fr
-        else if (/^fr([_-][a-zA-Z]+)?$/.test(lang)) lang = 'fr';
-        // 其它直接用原始
-
+        // 兼容zh/zh-CN/zh-TW
+        if (lang === 'zh') lang = 'zh-CN';
+        if (lang === 'zh_Hant' || lang === 'zh_TW') lang = 'zh-TW';
         // 如果是支持的语言则使用，否则默认en
         const select = document.getElementById('language');
         if (![...select.options].some(opt => opt.value === lang)) lang = 'en';

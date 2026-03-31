@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0, minimum-scale=0.5">
+    <title id="page-title">Richmee Widget Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            min-height: 100vh;
+            padding: 0;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            position: relative;
+        }
+
+        header {
+            text-align: left;
+            margin-top: 100px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .intro {
+            color: #666;
+            font-size: 1em;
+            max-width: 680px;
+        }
+
+        .language-selector {
+            position: fixed;
+            top: 110px;
+            right: 40px;
+            z-index: 100;
+        }
+
+        .language-selector label {
+            display: none;
+        }
+
+        .language-selector select {
+            padding: 8px 22px 8px 12px;
+            font-size: 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s;
+            color: #666;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+        }
+
+        .language-selector select:hover {
+            background: #f8f9fa;
+            border-color: #1a1a1a;
+            box-shadow: 0 2px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .language-selector select:focus {
+            border-color: #1a1a1a;
+        }
+
+        .step {
+            margin-bottom: 32px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .step-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-title {
+            font-size: 1em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .step-description {
+            margin-left: 40px;
+            color: #555;
+            margin-bottom: 16px;
+            font-size: 1.05em;
+        }
+
+        .step-image {
+            margin-left: 40px;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            max-width: 320px;
+            position: relative;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            object-fit: cover;
+            display: block;
+            background: #f0f0f0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 0.5px solid #eee;
+            color: #666;
+            font-size: 11px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                padding-top: 60px;
+            }
+
+            .language-selector {
+                top: 110px;
+                right: 20px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .step {
+                padding: 15px;
+            }
+
+            .step-description,
+            .step-image {
+                margin-left: 0;
+            }
+
+            .image-wrapper {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="language-selector">
+            <label for="language" id="lang-label">Language: </label>
+            <select id="language" onchange="changeLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="zh-CN">简体中文</option>
+                <option value="zh-TW">繁體中文</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </div>
+
+        <header>
+            <h1 id="main-title">Create Richmee Widgets</h1>
+            <p class="subtitle" id="subtitle">Add your favorite Richmee widgets to the Home Screen</p>
+            <p class="intro" id="intro">Follow the steps below to find Richmee and place a widget on your iPhone Home Screen.</p>
+        </header>
+
+        <main id="steps-container"></main>
+
+        <footer id="footer">© 2025 Richmee. All rights reserved.</footer>
+    </div>
+
+    <script>
+        const translations = {
+            'en': {
+                pageTitle: 'Richmee Widget Guide',
+                mainTitle: 'Create Richmee Widgets',
+                subtitle: 'Add your favorite Richmee widgets to the Home Screen',
+                intro: 'Follow the steps below to find Richmee and place a widget on your iPhone Home Screen.',
+                langLabel: 'Language: ',
+                steps: [
+                    {
+                        title: 'Press and hold the Home Screen',
+                        description: 'Press and hold the Home Screen until the \"Edit\" button appears, then tap \"Edit\".',
+                        image: 'images/widgetGuide1.png'
+                    },
+                    {
+                        title: 'Tap "Add Widget"',
+                        description: 'From the quick actions menu, choose the widget option to open the iPhone widget picker.',
+                        image: 'images/widgetGuide2.png'
+                    },
+                    {
+                        title: 'Search for Richmee',
+                        description: 'Type "Richmee" in the search bar so the system can find the app widget gallery.',
+                        image: 'images/widgetGuide3.png'
+                    },
+                    {
+                        title: 'Choose a widget style',
+                        description: 'Browse the available Richmee widgets and pick the card style you want to display.',
+                        image: 'images/widgetGuide4.png'
+                    },
+                    {
+                        title: 'Add the widget to your Home Screen',
+                        description: 'Tap the add button to place the selected widget on your Home Screen.',
+                        image: 'images/widgetGuide5.png'
+                    },
+                    {
+                        title: 'Done',
+                        description: 'Your Richmee widget is now on the Home Screen. You can drag it to the position you prefer.',
+                        image: 'images/widgetGuide6.png'
+                    }
+                ],
+                footer: '© 2025 Richmee. All rights reserved.'
+            },
+            'zh-CN': {
+                pageTitle: 'Richmee 小组件指南',
+                mainTitle: '创建 Richmee 小组件',
+                subtitle: '将你喜欢的 Richmee 小组件添加到主屏幕',
+                intro: '按照下面的步骤，即可在 iPhone 主屏幕上找到并添加 Richmee 小组件。',
+                langLabel: '语言：',
+                steps: [
+                    {
+                        title: '长按 主屏幕',
+                        description: '长按主屏幕，直到出现"编辑"按钮，点击“编辑”。',
+                        image: 'images/widgetGuide1.png'
+                    },
+                    {
+                        title: '点击“添加小组件”',
+                        description: '在快捷菜单中选择“添加小组件”，进入 iPhone 的小组件选择界面。',
+                        image: 'images/widgetGuide2.png'
+                    },
+                    {
+                        title: '搜索 Richmee',
+                        description: '在搜索框中输入“Richmee”，快速找到应用对应的小组件。',
+                        image: 'images/widgetGuide3.png'
+                    },
+                    {
+                        title: '选择你喜欢的小组件样式',
+                        description: '左右浏览 Richmee 提供的小组件，选择想展示在主屏幕上的样式。',
+                        image: 'images/widgetGuide4.png'
+                    },
+                    {
+                        title: '添加到主屏幕',
+                        description: '点击底部“添加小组件”，将当前选择的小组件放到主屏幕。',
+                        image: 'images/widgetGuide5.png'
+                    },
+                    {
+                        title: '创建完成',
+                        description: 'Richmee 小组件已添加成功，你可以继续拖动到喜欢的位置。',
+                        image: 'images/widgetGuide6.png'
+                    }
+                ],
+                footer: '© 2025 Richmee。保留所有权利。'
+            },
+            'zh-TW': {
+                pageTitle: 'Richmee 小工具指南',
+                mainTitle: '建立 Richmee 小工具',
+                subtitle: '將你喜歡的 Richmee 小工具加入主畫面',
+                intro: '按照以下步驟，即可在 iPhone 主畫面上找到並加入 Richmee 小工具。',
+                langLabel: '語言：',
+                steps: [
+                    {
+                        title: '長按主畫面',
+                        description: '長按主畫面，直到出現「編輯」按鈕，點擊「編輯」。',
+                        image: 'images/widgetGuide1.png'
+                    },
+                    {
+                        title: '點擊「加入小工具」',
+                        description: '在快捷選單中選擇加入小工具，進入 iPhone 的小工具選擇畫面。',
+                        image: 'images/widgetGuide2.png'
+                    },
+                    {
+                        title: '搜尋 Richmee',
+                        description: '在搜尋欄輸入「Richmee」，快速找到應用對應的小工具。',
+                        image: 'images/widgetGuide3.png'
+                    },
+                    {
+                        title: '選擇喜歡的小工具樣式',
+                        description: '左右瀏覽 Richmee 提供的小工具，選擇想顯示在主畫面上的樣式。',
+                        image: 'images/widgetGuide4.png'
+                    },
+                    {
+                        title: '加入主畫面',
+                        description: '點擊底部「加入小工具」，將目前選擇的小工具加入主畫面。',
+                        image: 'images/widgetGuide5.png'
+                    },
+                    {
+                        title: '完成建立',
+                        description: 'Richmee 小工具已成功加入，你可以繼續拖曳到喜歡的位置。',
+                        image: 'images/widgetGuide6.png'
+                    }
+                ],
+                footer: '© 2025 Richmee。保留所有權利。'
+            },
+            'ja': {
+                pageTitle: 'Richmee ウィジェットガイド',
+                mainTitle: 'Richmee ウィジェットを作成',
+                subtitle: 'お気に入りの Richmee ウィジェットをホーム画面に追加',
+                intro: '以下の手順に沿って、iPhone のホーム画面に Richmee ウィジェットを追加できます。',
+                langLabel: '言語：',
+                steps: [
+                    {
+                        title: 'ホーム画面を長押し',
+                        description: '「編集」ボタンが表示されるまでホーム画面を長押しし、「編集」をタップしてください。',
+                        image: 'images/widgetGuide1.png'
+                    },
+                    {
+                        title: '「ウィジェットを追加」をタップ',
+                        description: 'クイックメニューからウィジェット追加を選ぶと、iPhone のウィジェット選択画面が開きます。',
+                        image: 'images/widgetGuide2.png'
+                    },
+                    {
+                        title: 'Richmee を検索',
+                        description: '検索バーに「Richmee」と入力して、対象のウィジェット一覧を表示します。',
+                        image: 'images/widgetGuide3.png'
+                    },
+                    {
+                        title: 'ウィジェットのデザインを選択',
+                        description: 'Richmee のウィジェットを左右に確認し、表示したいスタイルを選びます。',
+                        image: 'images/widgetGuide4.png'
+                    },
+                    {
+                        title: 'ホーム画面に追加',
+                        description: '下部の追加ボタンをタップして、選択したウィジェットをホーム画面に配置します。',
+                        image: 'images/widgetGuide5.png'
+                    },
+                    {
+                        title: '設定完了',
+                        description: 'Richmee ウィジェットの追加が完了しました。好きな位置へ移動できます。',
+                        image: 'images/widgetGuide6.png'
+                    }
+                ],
+                footer: '© 2025 Richmee. All rights reserved.'
+            },
+            'ko': {
+                pageTitle: 'Richmee 위젯 가이드',
+                mainTitle: 'Richmee 위젯 만들기',
+                subtitle: '원하는 Richmee 위젯을 홈 화면에 추가하세요',
+                intro: '아래 단계를 따라 iPhone 홈 화면에 Richmee 위젯을 추가할 수 있습니다.',
+                langLabel: '언어: ',
+                steps: [
+                    {
+                        title: '홈 화면을 길게 누르기',
+                        description: '홈 화면을 길게 눌러 "편집" 버튼이 나타나면 "편집"을 누르세요.',
+                        image: 'images/widgetGuide1.png'
+                    },
+                    {
+                        title: '"위젯 추가" 선택',
+                        description: '빠른 작업 메뉴에서 위젯 추가를 눌러 iPhone 위젯 선택 화면으로 이동합니다.',
+                        image: 'images/widgetGuide2.png'
+                    },
+                    {
+                        title: 'Richmee 검색',
+                        description: '검색창에 "Richmee"를 입력해 앱 위젯을 빠르게 찾습니다.',
+                        image: 'images/widgetGuide3.png'
+                    },
+                    {
+                        title: '원하는 위젯 스타일 고르기',
+                        description: 'Richmee 위젯을 둘러보고 홈 화면에 표시할 스타일을 선택합니다.',
+                        image: 'images/widgetGuide4.png'
+                    },
+                    {
+                        title: '홈 화면에 추가',
+                        description: '하단의 추가 버튼을 눌러 선택한 위젯을 홈 화면에 배치합니다.',
+                        image: 'images/widgetGuide5.png'
+                    },
+                    {
+                        title: '완료',
+                        description: 'Richmee 위젯이 홈 화면에 추가되었습니다. 원하는 위치로 이동할 수 있습니다.',
+                        image: 'images/widgetGuide6.png'
+                    }
+                ],
+                footer: '© 2025 Richmee. 모든 권리 보유.'
+            },
+            'es': {
+                pageTitle: 'Guía de Widgets de Richmee',
+                mainTitle: 'Crear widgets de Richmee',
+                subtitle: 'Añade tus widgets favoritos de Richmee a la pantalla de inicio',
+                intro: 'Sigue estos pasos para encontrar Richmee y colocar un widget en la pantalla de inicio del iPhone.',
+                langLabel: 'Idioma: ',
+                steps: [
+                    {
+                        title: 'Mantén pulsada la pantalla de inicio',
+                        description: 'Mantén pulsada la pantalla de inicio hasta que aparezca el botón \"Editar\" y luego tócala..',
+                        image: 'images/widgetGuide1.png'
+                    },
+                    {
+                        title: 'Toca "Añadir widget"',
+                        description: 'En el menú rápido, elige la opción para abrir el selector de widgets del iPhone.',
+                        image: 'images/widgetGuide2.png'
+                    },
+                    {
+                        title: 'Busca Richmee',
+                        description: 'Escribe "Richmee" en la barra de búsqueda para encontrar los widgets de la app.',
+                        image: 'images/widgetGuide3.png'
+                    },
+                    {
+                        title: 'Elige un estilo de widget',
+                        description: 'Revisa los widgets disponibles de Richmee y selecciona el estilo que quieras mostrar.',
+                        image: 'images/widgetGuide4.png'
+                    },
+                    {
+                        title: 'Añádelo a la pantalla de inicio',
+                        description: 'Toca el botón de añadir para colocar el widget seleccionado en tu pantalla de inicio.',
+                        image: 'images/widgetGuide5.png'
+                    },
+                    {
+                        title: 'Listo',
+                        description: 'Tu widget de Richmee ya está en la pantalla de inicio. Puedes moverlo a la posición que prefieras.',
+                        image: 'images/widgetGuide6.png'
+                    }
+                ],
+                footer: '© 2025 Richmee. Todos los derechos reservados.'
+            },
+            'fr': {
+                pageTitle: 'Guide des widgets Richmee',
+                mainTitle: 'Créer des widgets Richmee',
+                subtitle: 'Ajoutez vos widgets Richmee favoris à l’écran d’accueil',
+                intro: 'Suivez les étapes ci-dessous pour trouver Richmee et ajouter un widget à l’écran d’accueil de votre iPhone.',
+                langLabel: 'Langue : ',
+                steps: [
+                    {
+                        title: 'Maintenez l’écran d’accueil enfoncé',
+                        description: 'Maintenez l’écran d’accueil enfoncé jusqu’à ce que le bouton « Modifier » apparaisse, puis appuyez dessus.',
+                        image: 'images/widgetGuide1.png'
+                    },
+                    {
+                        title: 'Touchez « Ajouter un widget »',
+                        description: 'Dans le menu rapide, choisissez l’option widget pour ouvrir la galerie de widgets de l’iPhone.',
+                        image: 'images/widgetGuide2.png'
+                    },
+                    {
+                        title: 'Recherchez Richmee',
+                        description: 'Saisissez « Richmee » dans la barre de recherche pour afficher les widgets de l’app.',
+                        image: 'images/widgetGuide3.png'
+                    },
+                    {
+                        title: 'Choisissez un style de widget',
+                        description: 'Parcourez les widgets Richmee disponibles et sélectionnez celui que vous souhaitez afficher.',
+                        image: 'images/widgetGuide4.png'
+                    },
+                    {
+                        title: 'Ajoutez-le à l’écran d’accueil',
+                        description: 'Touchez le bouton d’ajout pour placer le widget sélectionné sur l’écran d’accueil.',
+                        image: 'images/widgetGuide5.png'
+                    },
+                    {
+                        title: 'Terminé',
+                        description: 'Le widget Richmee est maintenant sur l’écran d’accueil. Vous pouvez le déplacer où vous voulez.',
+                        image: 'images/widgetGuide6.png'
+                    }
+                ],
+                footer: '© 2025 Richmee. Tous droits réservés.'
+            },
+            'de': {
+                pageTitle: 'Richmee Widget-Anleitung',
+                mainTitle: 'Richmee Widgets erstellen',
+                subtitle: 'Füge deine Lieblings-Widgets von Richmee zum Home-Bildschirm hinzu',
+                intro: 'Folge den Schritten unten, um Richmee zu finden und ein Widget auf dem iPhone-Home-Bildschirm zu platzieren.',
+                langLabel: 'Sprache: ',
+                steps: [
+                    {
+                        title: 'Startbildschirm gedrückt halten',
+                        description: 'Halten Sie den Startbildschirm gedrückt, bis die Schaltfläche „Bearbeiten“ erscheint, und tippen Sie darauf.',
+                        image: 'images/widgetGuide1.png'
+                    },
+                    {
+                        title: '"Widget hinzufügen" tippen',
+                        description: 'Wähle im Schnellmenü die Widget-Option, um die iPhone-Widget-Auswahl zu öffnen.',
+                        image: 'images/widgetGuide2.png'
+                    },
+                    {
+                        title: 'Nach Richmee suchen',
+                        description: 'Gib "Richmee" in die Suche ein, damit die Widget-Galerie der App angezeigt wird.',
+                        image: 'images/widgetGuide3.png'
+                    },
+                    {
+                        title: 'Widget-Stil auswählen',
+                        description: 'Sieh dir die verfügbaren Richmee-Widgets an und wähle den Stil, den du anzeigen möchtest.',
+                        image: 'images/widgetGuide4.png'
+                    },
+                    {
+                        title: 'Zum Home-Bildschirm hinzufügen',
+                        description: 'Tippe auf die Hinzufügen-Schaltfläche, um das ausgewählte Widget auf dem Home-Bildschirm zu platzieren.',
+                        image: 'images/widgetGuide5.png'
+                    },
+                    {
+                        title: 'Fertig',
+                        description: 'Dein Richmee-Widget ist jetzt auf dem Home-Bildschirm. Du kannst es an die gewünschte Position ziehen.',
+                        image: 'images/widgetGuide6.png'
+                    }
+                ],
+                footer: '© 2025 Richmee. Alle Rechte vorbehalten.'
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function detectBrowserLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            if (translations[browserLang]) {
+                return browserLang;
+            }
+
+            const mainLang = browserLang.split('-')[0];
+            const matchedLang = Object.keys(translations).find((lang) => lang.startsWith(mainLang));
+            return matchedLang || 'en';
+        }
+
+        function getLocalizedImagePath(originalPath, lang) {
+            const lastDotIndex = originalPath.lastIndexOf('.');
+            const pathWithoutExt = originalPath.substring(0, lastDotIndex);
+            const extension = originalPath.substring(lastDotIndex);
+
+            let simplifiedLang = lang;
+            if (lang.startsWith('zh-')) {
+                simplifiedLang = 'zh';
+            }
+
+            return `${pathWithoutExt}_${simplifiedLang}${extension}`;
+        }
+
+        function renderSteps(lang) {
+            const stepsContainer = document.getElementById('steps-container');
+            const data = translations[lang];
+            stepsContainer.innerHTML = '';
+
+            data.steps.forEach((step, index) => {
+                const localizedImagePath = getLocalizedImagePath(step.image, lang);
+                const stepElement = document.createElement('div');
+                stepElement.className = 'step';
+                stepElement.innerHTML = `
+                    <div class="step-header">
+                        <span class="step-number">${index + 1}</span>
+                        <h2 class="step-title">${step.title}</h2>
+                    </div>
+                    <p class="step-description">${step.description}</p>
+                    <div class="step-image">
+                        <div class="image-wrapper">
+                            <img src="${localizedImagePath}" alt="${step.title}" loading="lazy" onerror="this.onerror=null; this.src='${step.image}';">
+                        </div>
+                    </div>
+                `;
+                stepsContainer.appendChild(stepElement);
+            });
+        }
+
+        function updatePage(lang) {
+            const data = translations[lang];
+            document.getElementById('page-title').textContent = data.pageTitle;
+            document.getElementById('main-title').textContent = data.mainTitle;
+            document.getElementById('subtitle').textContent = data.subtitle;
+            document.getElementById('intro').textContent = data.intro;
+            document.getElementById('lang-label').textContent = data.langLabel;
+            document.getElementById('footer').textContent = data.footer;
+            document.documentElement.lang = lang;
+            renderSteps(lang);
+        }
+
+        function changeLanguage(lang) {
+            localStorage.setItem('selectedWidgetGuideLanguage', lang);
+            currentLanguage = translations[lang] ? lang : 'en';
+            updatePage(currentLanguage);
+        }
+
+        function getXLanguage() {
+            const query = window.location.search.replace(/^\?/, '').split('&');
+            let lang = null;
+            for (let i = 0; i < query.length; i += 1) {
+                const [key, value] = query[i].split('=');
+                if (key && key.trim().toLowerCase() === 'x-language') {
+                    lang = decodeURIComponent(value || '').trim();
+                    break;
+                }
+            }
+            if (lang) {
+                return lang;
+            }
+            if (window.xLanguage) {
+                return window.xLanguage;
+            }
+            return null;
+        }
+
+        function init() {
+            let lang = getXLanguage();
+
+            if (lang) {
+                if (lang === 'zh') {
+                    lang = 'zh-CN';
+                }
+                if (lang === 'zh_Hant' || lang === 'zh-TW') {
+                    lang = 'zh-TW';
+                }
+            } else {
+                lang = localStorage.getItem('selectedWidgetGuideLanguage') || detectBrowserLanguage();
+            }
+
+            if (!translations[lang]) {
+                lang = 'en';
+            }
+
+            currentLanguage = lang;
+            document.getElementById('language').value = currentLanguage;
+            updatePage(currentLanguage);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    </script>
+</body>
+
+</html>
